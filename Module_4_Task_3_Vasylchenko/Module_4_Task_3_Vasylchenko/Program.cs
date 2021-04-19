@@ -1,9 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Module_4_Task_3_Vasylchenko.Entities;
-using System;
+﻿using System;
 using System.IO;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Module_4_Task_3_Vasylchenko
 {
@@ -24,15 +22,7 @@ namespace Module_4_Task_3_Vasylchenko
 
             using (var db = new ApplicationContext(options))
             {
-                var companies = db.Titels.ToList();
-                foreach (var company in companies)
-                {
-                    Console.WriteLine($"{company.Id}.{company.Name}");
-                }
-
-                db.Titels.Add(new Title() {Name = "test" });
                 db.SaveChanges();
-
             }
             Console.Read();
         }
