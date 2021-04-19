@@ -1,0 +1,34 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Module_4_Task_3_Vasylchenko.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Module_4_Task_3_Vasylchenko.EntityConfigurations
+{
+    public class EmployeeConfigurations : IEntityTypeConfiguration<Employee>
+    {
+        public void Configure(EntityTypeBuilder<Employee> builder)
+        {
+            builder.ToTable("Employee").HasKey(p => p.Id);
+            builder.Property(p => p.Id).HasColumnName("EmployeeId");
+            builder.Property(p => p.FirstName).HasColumnName("FirstName").HasMaxLength(50);
+            builder.Property(p => p.LastName).HasColumnName("LastName").HasMaxLength(50);
+            builder.Property(p => p.HiredDate).HasColumnName("HiredDate").HasColumnType("datetime2(7)");
+            builder.Property(p => p.DateOfBirth).IsRequired().HasColumnName("DateOfBirth").HasColumnType("date");
+
+            builder.HasOne(d => d.Office)
+                .WithMany(p => p.Employees)
+                .HasForeignKey(d => d.OfficeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(d => d.Title)
+                .WithMany(p => p.Employees)
+                .HasForeignKey(d => d.TitleId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+    }
+}

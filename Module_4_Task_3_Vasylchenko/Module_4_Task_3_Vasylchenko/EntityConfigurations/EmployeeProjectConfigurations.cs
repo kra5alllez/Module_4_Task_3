@@ -1,0 +1,32 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Module_4_Task_3_Vasylchenko.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Module_4_Task_3_Vasylchenko.EntityConfigurations
+{
+    public class EmployeeProjectConfigurations : IEntityTypeConfiguration<EmployeeProject>
+    {
+        public void Configure(EntityTypeBuilder<EmployeeProject> builder)
+        {
+            builder.ToTable("EmployeeProject").HasKey(p => p.Id);
+            builder.Property(p => p.Id).HasColumnName("EmployeeProjectId");
+            builder.Property(p => p.Rate).HasColumnName("Rate").HasColumnType("money");
+            builder.Property(p => p.StartedDate).HasColumnName("StartedDate").HasColumnType("datetime2(7)");
+
+            builder.HasOne(d => d.Employee)
+                .WithMany(p => p.EmployeeProject)
+                .HasForeignKey(d => d.EmployeeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(d => d.Project)
+                .WithMany(p => p.EmployeeProject)
+                .HasForeignKey(d => d.ProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+    }
+}
