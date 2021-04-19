@@ -10,8 +10,8 @@ namespace Module_4_Task_3_Vasylchenko.EntityConfigurations
         {
             builder.ToTable("Office").HasKey(p => p.Id);
             builder.Property(p => p.Id).HasColumnName("OfficeId");
-            builder.Property(p => p.Title).HasColumnName("Title").HasMaxLength(100);
-            builder.Property(p => p.Location).HasColumnName("Location").HasMaxLength(100);
+            builder.Property(p => p.Title).IsRequired().HasColumnName("Title").HasMaxLength(100);
+            builder.Property(p => p.Location).IsRequired().HasColumnName("Location").HasMaxLength(100);
         }
     }
 }

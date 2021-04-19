@@ -10,7 +10,7 @@ namespace Module_4_Task_3_Vasylchenko.EntityConfigurations
         {
             builder.ToTable("Title").HasKey(p => p.Id);
             builder.Property(p => p.Id).HasColumnName("TitleId");
-            builder.Property(p => p.Name).HasColumnName("Name").HasMaxLength(50);
+            builder.Property(p => p.Name).IsRequired().HasColumnName("Name").HasMaxLength(50);
         }
     }
 }
