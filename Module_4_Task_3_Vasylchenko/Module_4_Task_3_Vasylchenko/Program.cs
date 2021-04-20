@@ -24,6 +24,7 @@ namespace Module_4_Task_3_Vasylchenko
             {
                 db.SaveChanges();
             }
+
             Console.Read();
         }
     }
